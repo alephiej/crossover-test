@@ -1,0 +1,7 @@
+---
+- name: install docker-py with pip
+  become: true
+  pip: state=present name='{{ item }}'
+  with_item:
+    - docker-py==1.7.0
+    - six==1.10.0

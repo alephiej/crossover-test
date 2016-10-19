@@ -1,0 +1,19 @@
+---
+- name: 'enable httpd service'
+  service:
+    name: httpd
+    state: started
+    enabled: yes
+
+- name: 'create s3cmd configuration'
+  template:
+    src: s3cfg.j2
+    dest: ~/.s3cfg
+    mode: 0644
+
+- name: 'add s3 backup cron @7PM'
+  cron:
+    name: 'apache logs backup'
+    hour: 19
+    job: /usr/bin/s3cmd sync /var/log/apache2/ s3://crossover-apache-logs/
+

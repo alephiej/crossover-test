@@ -1,0 +1,24 @@
+---
+- name: 'create s3cmd configuration'
+  template:
+    src: s3cfg.j2
+    dest: ~/.s3cfg
+    mode: 0644
+
+- name: 'create mysql db backup script'
+  template:
+    src: s3-mysql-backup.sh.j2
+    dest: /usr/bin/s3-mysql-backup.sh
+    mode: 0755
+
+- name: 'add s3 logs backup cron @7PM'
+  cron:
+    name: 'mysql logs backup'
+    hour: 19
+    job: /usr/bin/s3cmd sync /var/log/mysql/ s3://crossover-mysql-logs/
+
+- name: 'add mysql databases backup daily @11PM'
+  cron:
+    name: 'mysql database backup'
+    hour: 19
+    job: /usr/bin/s3-mysql-backup.sh

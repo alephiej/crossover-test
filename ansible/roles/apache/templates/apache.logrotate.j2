@@ -1,0 +1,8 @@
+/var/log/apache2/*.log {
+  missingok
+  notifempty
+  sharedscripts
+  postrotate
+  /etc/init.d/apache2 reload > /dev/null 2>&1 || true
+  endscript
+}

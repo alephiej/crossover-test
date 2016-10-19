@@ -1,0 +1,6 @@
+---
+- include: install.yml
+  tags: icinga_install
+
+- include: service.yml
+  tags: icinga_service

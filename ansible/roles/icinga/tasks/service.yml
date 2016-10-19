@@ -1,0 +1,6 @@
+---
+- name: 'Enable and start icinga service'
+  service:
+    name=icinga2
+    enabled=yes
+    state=started

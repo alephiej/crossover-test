@@ -1,0 +1,5 @@
+---
+- name: 'configure apache logrotate'
+  template:
+    dest: /etc/logrotate/apache2
+    src: apache.logrotate.j2

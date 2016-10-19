@@ -1,0 +1,24 @@
+---
+- name: 'apache container'
+  docker:
+    name: crossover_apache
+    image: crossover:apache
+    state: started
+    pull: missing
+    ports: 80:180
+    command: /usr/sbin/httpd -DFOREGROUND
+
+- name: 'add apache container to inventory'
+  add_host: name=crossover_apache
+
+- name: 'mysql container'
+  docker:
+    name: crossover_mysql
+    image: crossover:mysql
+    state: started
+    pull: missing
+    ports: 3306:23306
+    command: mysqld_safe
+
+- name: 'add mysql container to inventory'
+  add_host: name=crossover_mysql
